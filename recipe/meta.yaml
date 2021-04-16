@@ -30,7 +30,7 @@ requirements:
     - etelemetry
     - fasteners
     - fscacher
-    - h5py ~=2.9
+    - h5py >=2.9
     - humanize
     - joblib
     - jsonschema
