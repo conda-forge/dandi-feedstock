@@ -28,6 +28,7 @@ requirements:
     - appdirs
     - click
     - click-didyoumean
+    - dandischema
     - email_validator
     - etelemetry
     - fasteners
