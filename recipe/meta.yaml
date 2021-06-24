@@ -23,23 +23,22 @@ requirements:
     - setuptools
   run:
     - python
-    - girder-client
-    - pynwb >=1.0.3,!=1.1.0
     - appdirs
     - click
     - click-didyoumean
-    - email_validator
+    - dandischema >=0.2.3,<0.3.0
     - etelemetry
     - fasteners
     - fscacher
-    - h5py ~=2.9
     - humanize
+    - importlib-metadata
     - joblib
-    - jsonschema
     - keyring
     - keyrings.alt
+    - packaging
     - pycryptodomex
     - pydantic
+    - pynwb >=1.0.3,!=1.1.0
     - pyout
     - python-dateutil
     - requests >=0.22.0
