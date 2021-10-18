@@ -10,7 +10,7 @@ source:
   sha256: 44141503d606b7095a491ee03264f3c95740352269b6454ce84a5e96783b198b
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<37]
   entry_points:
     - dandi=dandi.cli.command:main
@@ -60,6 +60,7 @@ test:
     - dandi
   commands:
     - python -m pytest -s -v --pyargs dandi
+    - python -c 'import ruamel.yaml'
 
 about:
   home: https://github.com/dandi/dandi-cli
