@@ -1,5 +1,5 @@
 {% set name = "dandi" %}
-{% set version = "0.60.0" %}
+{% set version = "0.61.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d83c8e182896fd845108c2869f0f54807d4945341de495f3866ed330154d75d4
+  sha256: 1a2c58ef9477d063da659abebb88c10711aeb3da488e1b74f4bdf7b84f9d93d2
 
 build:
   number: 0
