@@ -1,6 +1,7 @@
 # Needed for opencv:
 mesa-libEGL
 mesa-libGL
+mesa-libOpenGL
 mesa-dri-drivers
 libselinux
 libXdamage
