@@ -30,6 +30,7 @@ requirements:
     - etelemetry >=0.2.0
     - fasteners
     - fscacher
+    - hdmf !=3.14.4
     - humanize
     - interleave
     - joblib
