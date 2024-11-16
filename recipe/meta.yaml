@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: a44ea8863f865cfe85afce18c2299cd1c324c6ac56efafccd84e7a920967e731
 
 build:
@@ -47,6 +47,7 @@ requirements:
     - ruamel.yaml >=0.15,<1
     - semantic_version
     - tenacity
+    - urllib3 >=2.0
     - yarl >=1.9,<2.0
     - zarr >=2.10,<3.0
     - zarr-checksum >=0.4.0,<0.5
