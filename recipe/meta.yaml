@@ -10,8 +10,7 @@ source:
   sha256: 43158310123f8ff2ec304d9327bc65e8a6e801cf9ed3c8ea7e7c79dc341330f1
 
 build:
-  number: 0
-  skip: true  # [py<38]
+  number: 1
   entry_points:
     - dandi=dandi.cli.command:main
   script: {{ PYTHON }} -m pip install . -vv
