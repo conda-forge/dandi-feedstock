@@ -8,6 +8,10 @@ package:
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: b82dd45f4ba69c97652367ee1bdce29eaa7f84322677350a625b6bf8222a08aa
+  patches:
+    # should not be dropped until
+    # https://github.com/agronholm/exceptiongroup/issues/144 resolved
+    - 0001-Workaround-catch-AttributeError-while-formatting-exc.patch
 
 build:
   number: 0
