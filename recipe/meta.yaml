@@ -1,5 +1,5 @@
 {% set name = "dandi" %}
-{% set version = "0.67.0" %}
+{% set version = "0.67.2" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 43158310123f8ff2ec304d9327bc65e8a6e801cf9ed3c8ea7e7c79dc341330f1
+  sha256: b82dd45f4ba69c97652367ee1bdce29eaa7f84322677350a625b6bf8222a08aa
+  patches:
+    # should not be dropped until
+    # https://github.com/agronholm/exceptiongroup/issues/144 resolved
+    - 0001-Workaround-catch-AttributeError-while-formatting-exc.patch
 
 build:
   number: 0
