@@ -1,5 +1,5 @@
 {% set name = "dandi" %}
-{% set version = "0.67.2" %}
+{% set version = "0.68.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b82dd45f4ba69c97652367ee1bdce29eaa7f84322677350a625b6bf8222a08aa
+  sha256: 5f50f4c3f42b9ed1e331cefdf4a81aa2f3eb5b325c0c433f1ca2d9f7ef87d045
   patches:
     # should not be dropped until
     # https://github.com/agronholm/exceptiongroup/issues/144 resolved
