@@ -14,7 +14,7 @@ source:
     - 0001-Workaround-catch-AttributeError-while-formatting-exc.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<38]
   entry_points:
     - dandi=dandi.cli.command:main
@@ -85,4 +85,3 @@ about:
 extra:
   recipe-maintainers:
     - yarikoptic
-    - jwodder
