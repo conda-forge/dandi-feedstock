@@ -1,0 +1,48 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yaroslav Halchenko <debian@onerussian.com>
+Date: Tue, 11 Mar 2026 00:00:00 -0400
+Subject: [PATCH] Gracefully handle missing bids-validator-deno
+
+bids-validator-deno is not yet available on conda-forge.
+Make it a soft dependency: warn users to install it via pip
+if they need BIDS validation.
+
+---
+ dandi/bids_validator_deno/_validator.py | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/dandi/bids_validator_deno/_validator.py b/dandi/bids_validator_deno/_validator.py
+--- a/dandi/bids_validator_deno/_validator.py
++++ b/dandi/bids_validator_deno/_validator.py
+@@ -138,6 +138,19 @@ def _invoke_validator(args: list[str]) -> CompletedProcess:
+         raise RuntimeError(
+             f"The `{' '.join(e.cmd)}` command timed out after {e.timeout} " f"seconds"
+         ) from e
++    except FileNotFoundError as e:
++        import warnings
++        warnings.warn(
++            f"bids-validator-deno is not installed. "
++            f"BIDS validation will be skipped. "
++            f"Install it with:  pip install bids-validator-deno"
++        )
++        raise ValidatorError(
++            cmd=[CMD, *args],
++            returncode=-1,
++            stdout="",
++            stderr=str(e),
++        ) from e
+
+     return result
+
+@@ -305,7 +318,10 @@ def get_version() -> str:
+     str
+         The version of the deno-compiled BIDS validator
+     """
+-    return version(DISTRIBUTION_NAME)
++    try:
++        return version(DISTRIBUTION_NAME)
++    except Exception:
++        return "0.0.0"
+
+
+ def _harmonize(

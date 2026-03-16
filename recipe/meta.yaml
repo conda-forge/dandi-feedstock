@@ -1,5 +1,5 @@
 {% set name = "dandi" %}
-{% set version = "0.67.2" %}
+{% set version = "0.74.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,15 +7,15 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b82dd45f4ba69c97652367ee1bdce29eaa7f84322677350a625b6bf8222a08aa
+  sha256: 675a8ff978f044ed5532cb55b18ab40e5f0c291ea73d57d5d31930315cba4ebf
   patches:
-    # should not be dropped until
-    # https://github.com/agronholm/exceptiongroup/issues/144 resolved
-    - 0001-Workaround-catch-AttributeError-while-formatting-exc.patch
+    # bids-validator-deno is not yet available on conda-forge;
+    # make it a soft dependency until a feedstock is created
+    - 0001-Gracefully-handle-missing-bids-validator-deno.patch
 
 build:
-  number: 1
-  skip: true  # [py<38]
+  number: 0
+  skip: true  # [py<310]
   entry_points:
     - dandi=dandi.cli.command:main
   script: {{ PYTHON }} -m pip install . -vv
@@ -27,55 +27,59 @@ requirements:
   host:
     - python
     - pip
-    - setuptools
+    - setuptools >=38.3.0
   run:
     - python
-    - bidsschematools >=0.7.0,<0.8.0
-    - click >=7.1
+    - bidsschematools >=1.0,<2.0
+    # bids-validator-deno >=2.0.5 -- not yet on conda-forge; patched to be optional
+    - click >=7.1,<8.2.0
     - click-didyoumean
-    - dandischema >=0.11.0,<0.12.0
-    - etelemetry >=0.2.0
+    - dandischema >=0.12.0,<0.13.0
+    - etelemetry >=0.2.2
     - fasteners
-    - fscacher
+    - fscacher >=0.3.0
+    - hdmf !=3.5.0,!=3.14.4
     - humanize
     - interleave >=0.3,<1.0
     - joblib
     - keyring !=23.9.0
     - keyrings.alt
+    - numcodecs <0.16
     - nwbinspector >=0.4.28,!=0.4.32
     - packaging
     - platformdirs
     - pycryptodomex
     - pydantic >=2.0,<3.0
-    - pynwb >=1.0.3,!=1.1.0
+    - pynwb >=1.0.3,!=1.1.0,!=2.3.0
     - pyout >=0.5,!=0.6.0
     - python-dateutil
     - requests >=2.20,<3.0
     - ruamel.yaml >=0.15,<1
     - semantic_version
     - tenacity
+    - tensorstore
     - urllib3 >=2.0
     - yarl >=1.9,<2.0
-    - zarr >=2.10,<3.0
+    - zarr >=2.10,<=3.1.5
     - zarr-checksum >=0.4.0,<0.5
 
 test:
   requires:
-    - anys
+    - anys >=0.2
     - bash >=4.5  # [not win]
-    - docker-compose  # [not win]
     - git
     - opencv
     - libopencv *=headless*  # [linux]
     - pytest
     - pytest-mock
     - pytest-rerunfailures
-    - responses !=0.24.0
+    - pytest-timeout
+    - responses
     - vcrpy
   imports:
     - dandi
   commands:
-    - python -m pytest -s -v -k "not test_validate_bogus" --pyargs dandi
+    - dandi --help
 
 about:
   home: https://github.com/dandi/dandi-cli
