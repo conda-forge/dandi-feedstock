@@ -14,7 +14,7 @@ source:
     - 0001-Gracefully-handle-missing-bids-validator-deno.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<310]
   entry_points:
     - dandi=dandi.cli.command:main
