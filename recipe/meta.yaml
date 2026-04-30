@@ -1,5 +1,5 @@
 {% set name = "dandi" %}
-{% set version = "0.74.3" %}
+{% set version = "0.75.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,14 +7,14 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 675a8ff978f044ed5532cb55b18ab40e5f0c291ea73d57d5d31930315cba4ebf
+  sha256: 9fb1e92cb1aeb2e4c8bec1b5b09032cfc65d19a830562d67f77e2b22242f352a
   patches:
     # bids-validator-deno is not yet available on conda-forge;
     # make it a soft dependency until a feedstock is created
     - 0001-Gracefully-handle-missing-bids-validator-deno.patch
 
 build:
-  number: 1
+  number: 0
   skip: true  # [py<310]
   entry_points:
     - dandi=dandi.cli.command:main
