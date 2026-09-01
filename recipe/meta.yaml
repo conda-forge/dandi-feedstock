@@ -1,5 +1,5 @@
 {% set name = "dandi" %}
-{% set version = "0.75.1" %}
+{% set version = "0.78.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 9fb1e92cb1aeb2e4c8bec1b5b09032cfc65d19a830562d67f77e2b22242f352a
+  sha256: dc6534ce24af32d4654e0d7d526fe1adc9062abd228cf95b7d9ea7defe2e1a0b
   patches:
     # bids-validator-deno is not yet available on conda-forge;
     # make it a soft dependency until a feedstock is created
@@ -15,7 +15,7 @@ source:
 
 build:
   number: 0
-  skip: true  # [py<310]
+  skip: true  # [py<311]
   entry_points:
     - dandi=dandi.cli.command:main
   script: {{ PYTHON }} -m pip install . -vv
@@ -32,40 +32,43 @@ requirements:
     - python
     - bidsschematools >=1.0,<2.0
     # bids-validator-deno >=2.0.5 -- not yet on conda-forge; patched to be optional
-    - click >=7.1,<8.2.0
-    - click-didyoumean
-    - dandischema >=0.12.0,<0.13.0
+    - click >=8.2
+    - click-didyoumean >=0.3.1
+    # 0.13.0 lacks the downgrade migrations the client uses to talk to older
+    # Archive servers; 0.14.0 restored them
+    - dandischema >=0.12.0,!=0.13.0,<0.15.0
     - etelemetry >=0.2.2
-    - fasteners
+    - fasteners >=0.19
     - fscacher >=0.3.0
-    - hdmf !=3.5.0,!=3.14.4
-    - humanize
+    - hdmf >=4.1.0
+    - humanize >=4.5.0
     - interleave >=0.3,<1.0
-    - joblib
-    - keyring !=23.9.0
-    - keyrings.alt
-    - numcodecs <0.16
-    - nwbinspector >=0.4.28,!=0.4.32
-    - packaging
-    - platformdirs
-    - pycryptodomex
-    - pydantic >=2.0,<3.0
-    - pynwb >=1.0.3,!=1.1.0,!=2.3.0
-    - pyout >=0.5,!=0.6.0
-    - python-dateutil
-    - requests >=2.20,<3.0
-    - ruamel.yaml >=0.15,<1
-    - semantic_version
-    - tenacity
-    - tensorstore  # [not win]
-    - urllib3 >=2.0
-    - yarl >=1.9,<2.0
-    - zarr >=2.10,<=3.1.5
+    - joblib >=1.3.0
+    - keyring >=23.10.0
+    - keyrings.alt >=5.0.0
+    - numcodecs >=0.11.0
+    - nwbinspector >=0.7.0
+    - packaging >=22.0
+    - platformdirs >=4.1.0
+    - pycryptodomex >=3.16.0
+    - pydantic >=2.9,<3.0
+    - pynwb >=3.1.0
+    - pyout >=0.7.3
+    - python-dateutil >=2.9.0
+    - requests >=2.30,<3.0
+    - ruamel.yaml >=0.16.0,<1
+    - semantic_version >=2.10.0
+    - tenacity >=8.2.0
+    # 0.1.62 is the first release built for numpy 2.x
+    - tensorstore >=0.1.62  # [not win]
+    - urllib3 >=2.0.2
+    - yarl >=1.9.1,<2.0
+    - zarr >=2.18.0,<=3.1.5
     - zarr-checksum >=0.4.0,<0.5
 
 test:
   requires:
-    - anys >=0.2
+    - anys >=0.3,<1.0
     - bash >=4.5  # [not win]
     - git
     - opencv
@@ -74,8 +77,8 @@ test:
     - pytest-mock
     - pytest-rerunfailures
     - pytest-timeout
-    - responses
-    - vcrpy
+    - responses !=0.24.0,!=0.25.5
+    - vcrpy >=5.0.0
   imports:
     - dandi
   commands:
