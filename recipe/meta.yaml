@@ -72,7 +72,7 @@ test:
     - bash >=4.5  # [not win]
     - git
     - opencv
-    - libopencv *=headless*  # [linux]
+    - libopencv * *headless*  # [linux]
     - pytest
     - pytest-mock
     - pytest-rerunfailures
